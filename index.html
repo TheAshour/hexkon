@@ -1,282 +1,750 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HEXKON — Compliance Infrastructure for Regulated Industries</title>
-  <meta name="description" content="HEXKON builds intelligent compliance infrastructure for regulated industries. Our flagship product reGulis is the Aviation Compliance OS." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HEXKON — Systems Architecture</title>
+  <meta name="description" content="HEXKON architects intelligent systems for industries that cannot afford to be wrong. Precision intelligence, structurally commanded.">
+  <meta property="og:title" content="HEXKON — Systems Architecture">
+  <meta property="og:description" content="We architect intelligent systems for industries that cannot afford to be wrong.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
     :root {
-      --navy: #0A1628; --navy-mid: #112240; --navy-soft: #1A3354;
-      --teal: #00C2CB; --teal-dark: #00A8B0; --white: #FFFFFF;
-      --off-white: #F7F9FC; --muted: #5A7A96; --border: #E2EAF2; --text: #0A1628;
+      --void:       #07090F;
+      --void-mid:   #0D1018;
+      --void-soft:  #111520;
+      --gold:       #C8A951;
+      --gold-light: #E2CB80;
+      --gold-pale:  #F5E9C4;
+      --gold-dark:  #8F7435;
+      --silver:     #8A9BB5;
+      --muted:      #3D4A60;
+      --white:      #F0F4FF;
     }
+
     html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', -apple-system, sans-serif; color: var(--text); background: var(--white); line-height: 1.6; -webkit-font-smoothing: antialiased; }
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0 5%; height: 64px; display: flex; align-items: center; justify-content: space-between; background: rgba(10,22,40,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.06); }
-    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-    .nav-logo-mark { width: 32px; height: 32px; background: var(--teal); border-radius: 8px; display: flex; align-items: center; justify-content: center; position: relative; }
-    .nav-logo-mark::before { content: ''; width: 14px; height: 14px; border: 2.5px solid var(--navy); border-radius: 3px; position: absolute; }
-    .nav-logo-mark::after { content: ''; width: 6px; height: 6px; background: var(--teal); border-radius: 1px; position: absolute; }
-    .nav-wordmark { font-size: 15px; font-weight: 700; letter-spacing: 0.08em; color: var(--white); }
-    .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
-    .nav-links a { color: rgba(255,255,255,0.65); text-decoration: none; font-size: 13.5px; font-weight: 500; transition: color 0.2s; }
-    .nav-links a:hover { color: var(--white); }
-    .nav-cta { background: var(--teal); color: var(--navy) !important; padding: 7px 18px; border-radius: 8px; font-weight: 600 !important; font-size: 13px !important; }
-    .hero { min-height: 100vh; background: var(--navy); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 120px 5% 80px; position: relative; overflow: hidden; }
-    .hero::before { content: ''; position: absolute; top: -200px; left: 50%; transform: translateX(-50%); width: 800px; height: 800px; background: radial-gradient(circle, rgba(0,194,203,0.12) 0%, transparent 65%); pointer-events: none; }
-    .hero-badge { display: inline-flex; align-items: center; gap: 6px; border: 1px solid rgba(0,194,203,0.3); color: var(--teal); font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 6px 14px; border-radius: 100px; background: rgba(0,194,203,0.08); margin-bottom: 28px; }
-    .hero-badge::before { content: ''; width: 6px; height: 6px; background: var(--teal); border-radius: 50%; }
-    .hero h1 { font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 800; color: var(--white); line-height: 1.15; letter-spacing: -0.02em; max-width: 780px; margin-bottom: 20px; }
-    .hero h1 span { color: var(--teal); }
-    .hero-sub { font-size: clamp(1rem, 1.8vw, 1.2rem); color: rgba(255,255,255,0.55); max-width: 560px; line-height: 1.7; margin-bottom: 44px; }
-    .hero-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; justify-content: center; }
-    .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--teal); color: var(--navy); font-size: 14px; font-weight: 700; padding: 13px 28px; border-radius: 10px; text-decoration: none; transition: background 0.2s, transform 0.15s; }
-    .btn-primary:hover { background: var(--teal-dark); transform: translateY(-1px); }
-    .btn-ghost { display: inline-flex; align-items: center; gap: 8px; border: 1px solid rgba(255,255,255,0.18); color: rgba(255,255,255,0.8); font-size: 14px; font-weight: 500; padding: 13px 28px; border-radius: 10px; text-decoration: none; transition: border-color 0.2s, color 0.2s; }
-    .btn-ghost:hover { border-color: rgba(255,255,255,0.4); color: var(--white); }
-    .hero-stats { display: flex; align-items: center; gap: 40px; margin-top: 72px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.08); }
-    .hero-stat-value { font-size: 2rem; font-weight: 800; color: var(--white); letter-spacing: -0.02em; }
-    .hero-stat-value span { color: var(--teal); }
-    .hero-stat-label { font-size: 12px; color: rgba(255,255,255,0.45); font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; margin-top: 2px; }
-    .stat-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.1); }
-    section { padding: 96px 5%; }
-    .section-label { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
-    .section-title { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800; color: var(--navy); line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 16px; }
-    .section-sub { font-size: 1.05rem; color: var(--muted); line-height: 1.7; max-width: 560px; }
-    .container { max-width: 1160px; margin: 0 auto; }
-    .mission { background: var(--off-white); }
-    .mission-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-    .mission-pillars { display: flex; flex-direction: column; gap: 20px; margin-top: 12px; }
-    .pillar { display: flex; gap: 16px; align-items: flex-start; }
-    .pillar-icon { width: 40px; height: 40px; border-radius: 10px; background: rgba(0,194,203,0.1); border: 1px solid rgba(0,194,203,0.2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 16px; }
-    .pillar-title { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
-    .pillar-desc { font-size: 13.5px; color: var(--muted); line-height: 1.6; }
-    .mission-visual { background: var(--navy); border-radius: 20px; padding: 40px; position: relative; overflow: hidden; }
-    .mission-visual::before { content: ''; position: absolute; top: -80px; right: -80px; width: 280px; height: 280px; background: radial-gradient(circle, rgba(0,194,203,0.15) 0%, transparent 65%); }
-    .mission-quote { font-size: 1.25rem; font-weight: 600; color: var(--white); line-height: 1.6; margin-bottom: 28px; position: relative; }
-    .mission-quote::before { content: '"'; font-size: 3rem; color: var(--teal); line-height: 1; display: block; margin-bottom: -8px; }
-    .mission-attribution { font-size: 13px; color: rgba(255,255,255,0.45); font-weight: 500; }
-    .mission-attribution strong { color: rgba(255,255,255,0.75); display: block; margin-bottom: 2px; }
-    .products-header { text-align: center; margin-bottom: 56px; }
-    .products-header .section-sub { margin: 0 auto; }
-    .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
-    .product-card { border-radius: 20px; padding: 40px; border: 1px solid var(--border); background: var(--white); transition: box-shadow 0.2s, transform 0.2s; position: relative; overflow: hidden; }
-    .product-card:hover { box-shadow: 0 20px 60px rgba(10,22,40,0.1); transform: translateY(-3px); }
-    .product-card.featured { background: var(--navy); border-color: transparent; }
-    .product-card.featured::before { content: ''; position: absolute; top: -100px; right: -100px; width: 300px; height: 300px; background: radial-gradient(circle, rgba(0,194,203,0.15) 0%, transparent 65%); }
-    .product-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 4px 10px; border-radius: 100px; margin-bottom: 24px; }
-    .product-badge.live { background: rgba(0,194,203,0.15); color: var(--teal); }
-    .product-badge.live::before { content: ''; width: 5px; height: 5px; background: var(--teal); border-radius: 50%; }
-    .product-badge.soon { background: rgba(90,122,150,0.12); color: var(--muted); }
-    .product-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
-    .product-logo-icon { width: 40px; height: 40px; border-radius: 10px; background: var(--teal); display: flex; align-items: center; justify-content: center; }
-    .product-logo-icon svg { fill: var(--navy); }
-    .product-logo-name { font-size: 22px; font-weight: 800; letter-spacing: -0.01em; }
-    .featured .product-logo-name { color: var(--white); }
-    .product-card:not(.featured) .product-logo-name { color: var(--navy); }
-    .product-tagline { font-size: 13px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 12px; color: var(--teal); }
-    .product-desc { font-size: 14.5px; line-height: 1.7; margin-bottom: 28px; }
-    .featured .product-desc { color: rgba(255,255,255,0.6); }
-    .product-card:not(.featured) .product-desc { color: var(--muted); }
-    .product-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
-    .product-features li { display: flex; align-items: center; gap: 10px; font-size: 13.5px; }
-    .featured .product-features li { color: rgba(255,255,255,0.75); }
-    .product-card:not(.featured) .product-features li { color: var(--navy); }
-    .product-features li::before { content: ''; width: 16px; height: 16px; border-radius: 50%; background: rgba(0,194,203,0.15); border: 1px solid rgba(0,194,203,0.3); flex-shrink: 0; }
-    .product-link { display: inline-flex; align-items: center; gap: 7px; font-size: 13.5px; font-weight: 600; text-decoration: none; transition: gap 0.2s; }
-    .featured .product-link { color: var(--teal); }
-    .product-card:not(.featured) .product-link { color: var(--navy); }
-    .product-link:hover { gap: 11px; }
-    .product-coming-soon { font-size: 14.5px; color: var(--muted); line-height: 1.7; margin-bottom: 28px; }
-    .coming-soon-pill { display: inline-flex; align-items: center; gap: 6px; background: var(--off-white); border: 1px dashed var(--border); color: var(--muted); font-size: 12px; font-weight: 600; letter-spacing: 0.05em; padding: 8px 16px; border-radius: 100px; text-transform: uppercase; }
-    .technology { background: var(--navy); color: var(--white); }
-    .technology .section-title { color: var(--white); }
-    .technology .section-sub { color: rgba(255,255,255,0.5); }
-    .tech-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-    .tech-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .tech-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 24px; transition: border-color 0.2s; }
-    .tech-card:hover { border-color: rgba(0,194,203,0.3); }
-    .tech-card-icon { font-size: 24px; margin-bottom: 12px; }
-    .tech-card-title { font-size: 14px; font-weight: 700; color: var(--white); margin-bottom: 6px; }
-    .tech-card-desc { font-size: 12.5px; color: rgba(255,255,255,0.45); line-height: 1.6; }
-    .contact { background: var(--off-white); }
-    .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
-    .contact-info { display: flex; flex-direction: column; gap: 24px; margin-top: 32px; }
-    .contact-item { display: flex; gap: 14px; align-items: flex-start; }
-    .contact-item-icon { width: 40px; height: 40px; border-radius: 10px; background: var(--navy); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 16px; }
-    .contact-item-label { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
-    .contact-item-value { font-size: 14.5px; font-weight: 500; color: var(--navy); }
-    .contact-item-value a { color: var(--teal-dark); text-decoration: none; }
-    .contact-form { background: var(--white); border-radius: 20px; padding: 40px; border: 1px solid var(--border); }
-    .contact-form h3 { font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 24px; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
-    .form-group label { font-size: 12px; font-weight: 600; color: var(--muted); letter-spacing: 0.04em; text-transform: uppercase; }
-    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 11px 14px; border: 1px solid var(--border); border-radius: 10px; font-size: 14px; font-family: 'Inter', sans-serif; color: var(--navy); background: var(--off-white); outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
-    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(0,194,203,0.1); background: var(--white); }
-    .form-group textarea { resize: none; height: 100px; }
-    .form-submit { width: 100%; background: var(--navy); color: var(--white); border: none; padding: 13px; border-radius: 10px; font-size: 14px; font-weight: 700; font-family: 'Inter', sans-serif; cursor: pointer; transition: background 0.2s; margin-top: 4px; }
-    .form-submit:hover { background: var(--navy-mid); }
-    footer { background: var(--navy); color: rgba(255,255,255,0.45); padding: 56px 5% 32px; }
-    .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 32px; }
-    .footer-brand p { font-size: 13.5px; line-height: 1.7; margin-top: 14px; max-width: 260px; }
-    .footer-col h4 { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.75); margin-bottom: 16px; }
-    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-    .footer-col a { color: rgba(255,255,255,0.45); text-decoration: none; font-size: 13.5px; transition: color 0.2s; }
-    .footer-col a:hover { color: rgba(255,255,255,0.85); }
-    .footer-bottom { display: flex; align-items: center; justify-content: space-between; font-size: 12.5px; }
-    .footer-bottom a { color: rgba(255,255,255,0.35); text-decoration: none; }
-    @media (max-width: 900px) { .mission-inner, .tech-inner, .contact-inner { grid-template-columns: 1fr; gap: 40px; } .footer-top { grid-template-columns: 1fr 1fr; } .hero-stats { gap: 20px; flex-wrap: wrap; justify-content: center; } .nav-links { display: none; } }
-    @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } .tech-cards { grid-template-columns: 1fr; } .footer-top { grid-template-columns: 1fr; } }
+
+    body {
+      background: var(--void);
+      color: var(--white);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-size: 15px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 68px;
+      background: rgba(7,9,15,0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(200,169,81,0.08);
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+    }
+
+    .nav-wordmark {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: 7px;
+      color: var(--gold);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--silver);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--gold); }
+
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 40px 80px;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse 90% 70% at 50% 35%, rgba(200,169,81,0.055) 0%, transparent 65%),
+        var(--void);
+    }
+
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(200,169,81,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(200,169,81,0.035) 1px, transparent 1px);
+      background-size: 52px 52px;
+      pointer-events: none;
+    }
+
+    .hero-logo { margin-bottom: 44px; position: relative; z-index: 1; }
+
+    .hero-wordmark {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 64px;
+      font-weight: 700;
+      letter-spacing: 18px;
+      color: var(--gold);
+      line-height: 1;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-rule {
+      width: 340px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 16px auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-sub {
+      font-size: 10px;
+      letter-spacing: 6px;
+      color: var(--silver);
+      text-transform: uppercase;
+      margin-bottom: 36px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-tagline {
+      font-size: 19px;
+      color: rgba(240,244,255,0.65);
+      font-style: italic;
+      font-weight: 300;
+      line-height: 1.65;
+      max-width: 520px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badge {
+      margin-top: 60px;
+      display: inline-block;
+      border: 1px solid rgba(200,169,81,0.22);
+      padding: 9px 28px;
+      font-size: 9px;
+      letter-spacing: 4px;
+      color: var(--gold);
+      text-transform: uppercase;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hero-scroll span {
+      font-size: 8px;
+      letter-spacing: 3px;
+      color: rgba(138,155,181,0.5);
+      text-transform: uppercase;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, rgba(200,169,81,0.4), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(200,169,81,0.18), transparent);
+    }
+
+    .section-wrap {
+      max-width: 1060px;
+      margin: 0 auto;
+      padding: 100px 64px;
+    }
+
+    .section-label {
+      font-size: 9px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    #mandate { background: var(--void-mid); }
+
+    .mandate-headline {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 42px;
+      font-weight: 300;
+      color: var(--gold-light);
+      letter-spacing: 0.5px;
+      line-height: 1.25;
+      margin-bottom: 24px;
+    }
+
+    .mandate-body {
+      font-size: 15px;
+      color: var(--silver);
+      line-height: 1.9;
+      max-width: 660px;
+      margin-bottom: 18px;
+    }
+
+    .mandate-body strong { color: var(--white); font-weight: 500; }
+
+    .mandate-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-top: 56px;
+    }
+
+    .mandate-card {
+      background: rgba(200,169,81,0.03);
+      border: 1px solid rgba(200,169,81,0.12);
+      padding: 44px;
+    }
+
+    .mandate-card-label {
+      font-size: 9px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 18px;
+    }
+
+    .mandate-card-text {
+      font-size: 14px;
+      color: var(--silver);
+      line-height: 1.85;
+      font-style: italic;
+    }
+
+    #systems { background: var(--void); }
+
+    .systems-intro {
+      font-size: 15px;
+      color: var(--silver);
+      line-height: 1.9;
+      max-width: 600px;
+      margin-bottom: 64px;
+    }
+
+    .arch-tree {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 64px;
+    }
+
+    .arch-parent-node {
+      background: var(--gold);
+      color: #07090F;
+      font-family: Georgia, serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 7px;
+      padding: 14px 52px;
+      border-radius: 2px;
+    }
+
+    .arch-connector-down {
+      width: 1px;
+      height: 32px;
+      background: linear-gradient(to bottom, var(--gold), rgba(200,169,81,0.3));
+    }
+
+    .arch-branch-h {
+      width: 100%;
+      max-width: 680px;
+      height: 1px;
+      background: linear-gradient(to right, transparent 5%, rgba(200,169,81,0.35) 20%, rgba(200,169,81,0.35) 80%, transparent 95%);
+    }
+
+    .arch-children {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      width: 100%;
+    }
+
+    .system-card {
+      border: 1px solid rgba(200,169,81,0.18);
+      background: rgba(200,169,81,0.03);
+      padding: 36px 30px;
+      position: relative;
+      transition: border-color 0.25s, background 0.25s;
+    }
+
+    .system-card:hover {
+      border-color: rgba(200,169,81,0.35);
+      background: rgba(200,169,81,0.06);
+    }
+
+    .system-card.future {
+      border-style: dashed;
+      border-color: rgba(138,155,181,0.15);
+      background: transparent;
+      opacity: 0.5;
+    }
+
+    .system-num {
+      font-size: 8px;
+      letter-spacing: 3px;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .system-name {
+      font-family: Georgia, serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--gold-light);
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+    }
+
+    .system-entity {
+      font-size: 9px;
+      letter-spacing: 2px;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .system-desc {
+      font-size: 13px;
+      color: var(--silver);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .system-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 24px;
+    }
+
+    .system-tag {
+      font-size: 8px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+      border: 1px solid rgba(200,169,81,0.2);
+      padding: 4px 9px;
+      border-radius: 2px;
+    }
+
+    .system-link {
+      font-size: 9px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(200,169,81,0.3);
+      padding-bottom: 2px;
+      transition: border-color 0.2s;
+    }
+
+    .system-link:hover { border-color: var(--gold); }
+    .system-card.future .system-name { color: var(--muted); }
+
+    .system-card.future .system-status {
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    #principle { background: var(--void-mid); }
+
+    .principle-inner {
+      max-width: 760px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 100px 64px;
+    }
+
+    .principle-mark {
+      font-size: 64px;
+      color: rgba(200,169,81,0.15);
+      font-family: Georgia, serif;
+      line-height: 1;
+      margin-bottom: -12px;
+    }
+
+    .principle-quote {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 26px;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--white);
+      line-height: 1.55;
+      margin-bottom: 28px;
+    }
+
+    .principle-attr {
+      font-size: 9px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    #industries { background: var(--void); }
+
+    .industries-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      margin-top: 48px;
+    }
+
+    .industry-tile {
+      background: rgba(200,169,81,0.025);
+      border: 1px solid rgba(200,169,81,0.10);
+      padding: 44px 32px;
+    }
+
+    .industry-tile:last-child { border-style: dashed; opacity: 0.45; }
+
+    .industry-icon { width: 36px; height: 36px; margin-bottom: 22px; opacity: 0.6; }
+
+    .industry-name {
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    .industry-desc { font-size: 13px; color: var(--silver); line-height: 1.7; }
+
+    #contact { background: var(--void-mid); }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      margin-top: 52px;
+    }
+
+    .contact-col-label {
+      font-size: 9px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 28px;
+    }
+
+    .contact-line { display: flex; flex-direction: column; gap: 3px; margin-bottom: 22px; }
+
+    .contact-line-label {
+      font-size: 8px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .contact-line-value { font-size: 14px; color: var(--silver); }
+    .contact-line-value a { color: var(--silver); text-decoration: none; transition: color 0.2s; }
+    .contact-line-value a:hover { color: var(--gold); }
+
+    .whatsapp-block {
+      border: 1px solid rgba(200,169,81,0.15);
+      background: rgba(200,169,81,0.03);
+      padding: 36px;
+      height: fit-content;
+    }
+
+    .whatsapp-label { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+    .whatsapp-num { font-family: Georgia, serif; font-size: 20px; color: var(--white); margin-bottom: 18px; letter-spacing: 2px; }
+    .whatsapp-note { font-size: 12px; color: var(--silver); line-height: 1.65; margin-bottom: 26px; }
+
+    .whatsapp-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(200,169,81,0.10);
+      border: 1px solid rgba(200,169,81,0.30);
+      color: var(--gold);
+      font-size: 9px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 12px 24px;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .whatsapp-btn:hover { background: rgba(200,169,81,0.18); border-color: var(--gold); }
+
+    footer {
+      background: var(--void);
+      border-top: 1px solid rgba(200,169,81,0.08);
+      padding: 36px 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-copy { font-size: 11px; color: var(--muted); letter-spacing: 1px; }
+    .footer-links { display: flex; gap: 32px; }
+    .footer-links a { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--gold); }
+
+    @media (max-width: 860px) {
+      nav { padding: 0 24px; }
+      .section-wrap { padding: 72px 28px; }
+      .hero-wordmark { font-size: 42px; letter-spacing: 12px; }
+      .mandate-headline { font-size: 30px; }
+      .mandate-cards { grid-template-columns: 1fr; }
+      .arch-children { grid-template-columns: 1fr 1fr; }
+      .industries-grid { grid-template-columns: 1fr 1fr; }
+      .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+      footer { flex-direction: column; gap: 20px; text-align: center; padding: 28px; }
+      .footer-links { flex-wrap: wrap; justify-content: center; }
+    }
+
+    @media (max-width: 560px) {
+      .nav-links { display: none; }
+      .arch-children { grid-template-columns: 1fr; }
+      .industries-grid { grid-template-columns: 1fr; }
+      .principle-quote { font-size: 20px; }
+    }
   </style>
 </head>
 <body>
-<nav>
-  <a href="#" class="nav-logo"><div class="nav-logo-mark"></div><span class="nav-wordmark">HEXKON</span></a>
-  <ul class="nav-links">
-    <li><a href="#mission">About</a></li>
-    <li><a href="#products">Products</a></li>
-    <li><a href="#technology">Technology</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="https://app.regulis.org" target="_blank" class="nav-cta">Launch reGulis →</a></li>
-  </ul>
-</nav>
-<section class="hero" id="home">
-  <div class="hero-badge">Compliance Infrastructure</div>
-  <h1>Building the future of <span>regulated industries</span></h1>
-  <p class="hero-sub">HEXKON creates intelligent software infrastructure that transforms how regulated industries manage compliance, risk, and regulatory obligations.</p>
-  <div class="hero-actions">
-    <a href="https://app.regulis.org" target="_blank" class="btn-primary">Try reGulis <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-    <a href="#products" class="btn-ghost">See Our Products</a>
-  </div>
-  <div class="hero-stats">
-    <div><div class="hero-stat-value">3<span>×</span></div><div class="hero-stat-label">AI Consensus Engines</div></div>
-    <div class="stat-divider"></div>
-    <div><div class="hero-stat-value">24<span>/7</span></div><div class="hero-stat-label">Compliance Coverage</div></div>
-    <div class="stat-divider"></div>
-    <div><div class="hero-stat-value">1<span>st</span></div><div class="hero-stat-label">Aviation Compliance OS</div></div>
-    <div class="stat-divider"></div>
-    <div><div class="hero-stat-value">CASA</div><div class="hero-stat-label">Jurisdiction Coverage</div></div>
-  </div>
-</section>
-<section class="mission" id="mission">
-  <div class="container">
-    <div class="mission-inner">
-      <div>
-        <p class="section-label">Our Mission</p>
-        <h2 class="section-title">Compliance shouldn't be a burden. It should be a competitive advantage.</h2>
-        <p class="section-sub">Regulated industries spend enormous resources on compliance — but most tools are outdated, fragmented, and reactive. HEXKON changes that.</p>
-        <div class="mission-pillars">
-          <div class="pillar"><div class="pillar-icon">🧠</div><div><div class="pillar-title">AI-First Architecture</div><div class="pillar-desc">Every product we build leverages state-of-the-art AI to interpret regulations, surface risks, and generate actionable guidance in real time.</div></div></div>
-          <div class="pillar"><div class="pillar-icon">🛡️</div><div><div class="pillar-title">Built for Regulators' Standards</div><div class="pillar-desc">Our systems are designed with the rigour of the industries we serve — aviation, healthcare, finance — where compliance failures have real consequences.</div></div></div>
-          <div class="pillar"><div class="pillar-icon">⚡</div><div><div class="pillar-title">Operator-First Design</div><div class="pillar-desc">We build for the people doing the compliance work — not auditors reviewing it after the fact. Speed, clarity, and confidence in every workflow.</div></div></div>
+
+  <nav>
+    <a href="#hero" class="nav-brand">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="30" height="30" aria-hidden="true">
+        <defs>
+          <filter id="ng" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <radialGradient id="nhf" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#C8A951" stop-opacity="0.10"/><stop offset="100%" stop-color="#C8A951" stop-opacity="0.02"/></radialGradient>
+          <linearGradient id="ngg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#E2CB80"/><stop offset="50%" stop-color="#C8A951"/><stop offset="100%" stop-color="#9A7A30"/></linearGradient>
+        </defs>
+        <polygon points="188,100 144,23.8 56,23.8 12,100 56,176.2 144,176.2" fill="url(#nhf)" stroke="url(#ngg)" stroke-width="2" filter="url(#ng)"/>
+        <polygon points="100,42 150.2,71 150.2,129 100,158 49.8,129 49.8,71" fill="none" stroke="#C8A951" stroke-width="1" stroke-opacity="0.30"/>
+        <g stroke="#C8A951" stroke-width="1" stroke-opacity="0.18"><line x1="100" y1="100" x2="188" y2="100"/><line x1="100" y1="100" x2="144" y2="23.8"/><line x1="100" y1="100" x2="56" y2="23.8"/><line x1="100" y1="100" x2="12" y2="100"/><line x1="100" y1="100" x2="56" y2="176.2"/><line x1="100" y1="100" x2="144" y2="176.2"/></g>
+        <g fill="#C8A951" filter="url(#ng)"><circle cx="188" cy="100" r="3.5"/><circle cx="144" cy="23.8" r="3.5"/><circle cx="56" cy="23.8" r="3.5"/><circle cx="12" cy="100" r="3.5"/><circle cx="56" cy="176.2" r="3.5"/><circle cx="144" cy="176.2" r="3.5"/></g>
+        <circle cx="100" cy="100" r="6" fill="#C8A951" filter="url(#ng)"/>
+        <circle cx="100" cy="100" r="3.5" fill="#E2CB80"/>
+      </svg>
+      <span class="nav-wordmark">HEXKON</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#mandate">Philosophy</a></li>
+      <li><a href="#systems">Systems</a></li>
+      <li><a href="#industries">Industries</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section id="hero">
+    <div class="hero-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="164" height="164" style="display:block;margin:0 auto;" aria-label="HEXKON mark">
+        <defs>
+          <filter id="hglow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="4" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <radialGradient id="hexFill" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#C8A951" stop-opacity="0.10"/><stop offset="100%" stop-color="#C8A951" stop-opacity="0.02"/></radialGradient>
+          <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#E2CB80"/><stop offset="50%" stop-color="#C8A951"/><stop offset="100%" stop-color="#9A7A30"/></linearGradient>
+        </defs>
+        <polygon points="188,100 144,23.8 56,23.8 12,100 56,176.2 144,176.2" fill="url(#hexFill)" stroke="url(#goldGrad)" stroke-width="2" filter="url(#hglow)"/>
+        <polygon points="100,42 150.2,71 150.2,129 100,158 49.8,129 49.8,71" fill="none" stroke="#C8A951" stroke-width="1" stroke-opacity="0.30"/>
+        <g stroke="#C8A951" stroke-width="1" stroke-opacity="0.18"><line x1="100" y1="100" x2="188" y2="100"/><line x1="100" y1="100" x2="144" y2="23.8"/><line x1="100" y1="100" x2="56" y2="23.8"/><line x1="100" y1="100" x2="12" y2="100"/><line x1="100" y1="100" x2="56" y2="176.2"/><line x1="100" y1="100" x2="144" y2="176.2"/></g>
+        <g fill="#C8A951" opacity="0.35"><circle cx="166" cy="61.9" r="2.5"/><circle cx="166" cy="138.1" r="2.5"/><circle cx="100" cy="23.8" r="2.5"/><circle cx="100" cy="176.2" r="2.5"/><circle cx="34" cy="61.9" r="2.5"/><circle cx="34" cy="138.1" r="2.5"/></g>
+        <g fill="#C8A951" filter="url(#hglow)"><circle cx="188" cy="100" r="3.5"/><circle cx="144" cy="23.8" r="3.5"/><circle cx="56" cy="23.8" r="3.5"/><circle cx="12" cy="100" r="3.5"/><circle cx="56" cy="176.2" r="3.5"/><circle cx="144" cy="176.2" r="3.5"/></g>
+        <g fill="#C8A951" opacity="0.45"><circle cx="100" cy="42" r="2"/><circle cx="150.2" cy="71" r="2"/><circle cx="150.2" cy="129" r="2"/><circle cx="100" cy="158" r="2"/><circle cx="49.8" cy="129" r="2"/><circle cx="49.8" cy="71" r="2"/></g>
+        <circle cx="100" cy="100" r="7" fill="#C8A951" filter="url(#hglow)"/>
+        <circle cx="100" cy="100" r="4" fill="#E2CB80"/>
+      </svg>
+    </div>
+    <div class="hero-wordmark">HEXKON</div>
+    <div class="hero-rule"></div>
+    <div class="hero-sub">Systems Architecture</div>
+    <p class="hero-tagline">"Precision intelligence, structurally commanded."</p>
+    <div class="hero-badge">Parkwood &middot; Queensland &middot; Australia</div>
+    <div class="hero-scroll"><div class="scroll-line"></div><span>Scroll</span></div>
+  </section>
+
+  <div class="divider"></div>
+  <section id="mandate">
+    <div class="section-wrap">
+      <div class="section-label">The Mandate</div>
+      <h2 class="mandate-headline">We do not build software.<br>We architect systems.</h2>
+      <p class="mandate-body">HEXKON is a systems architecture firm operating at the intersection of <strong>regulatory compliance</strong>, <strong>aviation safety</strong>, and <strong>intelligent computation</strong>. Every system we design is built for industries where the cost of error is measured not in revenue, but in consequence.</p>
+      <p class="mandate-body">We do not release products. We deploy structured intelligence &mdash; engineered to operate with the precision and reliability that safety-critical environments demand.</p>
+      <div class="mandate-cards">
+        <div class="mandate-card"><div class="mandate-card-label">Mission</div><p class="mandate-card-text">"We architect intelligent systems for industries that cannot afford to be wrong."</p></div>
+        <div class="mandate-card"><div class="mandate-card-label">Vision</div><p class="mandate-card-text">"A world where every regulated industry operates with the precision of proprietary intelligence &mdash; not guesswork."</p></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+  <section id="systems">
+    <div class="section-wrap">
+      <div class="section-label">The Systems</div>
+      <p class="systems-intro">Each HEXKON system is a dedicated architecture, purpose-built for a specific domain. Independently deployable. Collectively forming a precision intelligence network.</p>
+      <div class="arch-tree">
+        <div class="arch-parent-node">HEXKON</div>
+        <div class="arch-connector-down"></div>
+        <div class="arch-branch-h"></div>
+      </div>
+      <div class="arch-children">
+        <div class="system-card">
+          <span class="system-num">System 01</span>
+          <div class="system-name">reGulis</div>
+          <div class="system-entity">Regulus Systems Pty Ltd</div>
+          <p class="system-desc">Regulatory Compliance Operating System. Powered by ARIA &mdash; an autonomous reasoning engine that interprets, monitors, and enforces aviation regulatory obligations in real time.</p>
+          <div class="system-tags"><span class="system-tag">ARIA Engine</span><span class="system-tag">CASR</span><span class="system-tag">Part 91 / 135 / 119</span><span class="system-tag">Live</span></div>
+          <a href="https://regulis.org" class="system-link" target="_blank" rel="noopener">regulis.org &rarr;</a>
+        </div>
+        <div class="system-card">
+          <span class="system-num">System 02</span>
+          <div class="system-name">CUBES</div>
+          <div class="system-entity">Hexkon Systems</div>
+          <p class="system-desc">Aircraft Performance Computation System. A native iPad application delivering precise takeoff and landing performance calculations, weight &amp; balance, and fuel efficiency analysis for professional flight operations.</p>
+          <div class="system-tags"><span class="system-tag">iPad Native</span><span class="system-tag">Performance</span><span class="system-tag">Weight &amp; Balance</span><span class="system-tag">Live</span></div>
+          <a href="https://cubes.hexkon.com" class="system-link" target="_blank" rel="noopener">cubes.hexkon.com &rarr;</a>
+        </div>
+        <div class="system-card future">
+          <span class="system-num">System 03</span>
+          <div class="system-name">Classified</div><br>
+          <div class="system-status">Under Architecture</div>
+        </div>
+        <div class="system-card future">
+          <span class="system-num">System 04</span>
+          <div class="system-name">Classified</div><br>
+          <div class="system-status">Under Architecture</div>
         </div>
       </div>
-      <div class="mission-visual">
-        <div class="mission-quote">Compliance infrastructure should be as intelligent as the regulations it enforces.</div>
-        <div class="mission-attribution"><strong>Essam Ashour</strong>Founder &amp; CEO, HEXKON</div>
-      </div>
     </div>
-  </div>
-</section>
-<section id="products">
-  <div class="container">
-    <div class="products-header">
-      <p class="section-label">Our Products</p>
-      <h2 class="section-title">Intelligent tools for regulated industries</h2>
-      <p class="section-sub">Each HEXKON product targets a specific compliance challenge — starting with aviation, expanding across regulated sectors.</p>
+  </section>
+
+  <div class="divider"></div>
+  <section id="principle">
+    <div class="principle-inner">
+      <div class="principle-mark">&ldquo;</div>
+      <blockquote class="principle-quote">Every system we deploy is a commitment &mdash; not to a feature set, but to the operational integrity of the professionals who depend on it.</blockquote>
+      <div class="principle-attr">HEXKON Engineering Doctrine</div>
     </div>
-    <div class="products-grid">
-      <div class="product-card featured">
-        <div class="product-badge live">Live Product</div>
-        <div class="product-logo"><div class="product-logo-icon"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-4H7l5-8v4h4l-5 8z"/></svg></div><span class="product-logo-name">reGulis</span></div>
-        <div class="product-tagline">Aviation Compliance OS</div>
-        <p class="product-desc">The first AI-powered operating system for aviation compliance. reGulis gives operators a live compliance score, instant regulatory guidance, and a full audit trail — all in one platform.</p>
-        <ul class="product-features">
-          <li>Triple-engine AI consensus (GPT-4o + Claude)</li>
-          <li>CASR Part 91, 135, 119 coverage</li>
-          <li>Real-time gap analysis and scoring</li>
-          <li>Document scanning and Operations Manual management</li>
-          <li>CAPA tracking and proactive alerts</li>
-        </ul>
-        <a href="https://app.regulis.org" target="_blank" class="product-link">Open reGulis <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-      </div>
-      <div class="product-card">
-        <div class="product-badge soon">Coming Soon</div>
-        <div class="product-logo"><div class="product-logo-icon" style="background:#EFF6FF;"><svg width="20" height="20" viewBox="0 0 24 24" fill="#3B82F6"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg></div><span class="product-logo-name" style="color:var(--navy);">VerifyMed</span></div>
-        <div class="product-tagline">Healthcare Compliance</div>
-        <p class="product-coming-soon">Intelligent compliance infrastructure for healthcare operators — from accreditation management to real-time clinical governance monitoring.</p>
-        <div class="coming-soon-pill"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>In development</div>
-      </div>
-      <div class="product-card">
-        <div class="product-badge soon">Coming Soon</div>
-        <div class="product-logo"><div class="product-logo-icon" style="background:#FFF7ED;"><svg width="20" height="20" viewBox="0 0 24 24" fill="#F97316"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg></div><span class="product-logo-name" style="color:var(--navy);">RegTrack</span></div>
-        <div class="product-tagline">Financial Compliance</div>
-        <p class="product-coming-soon">End-to-end compliance management for financial services operators — AML, KYC, ASIC and APRA obligations tracked with AI precision.</p>
-        <div class="coming-soon-pill"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>In development</div>
-      </div>
-    </div>
-  </div>
-</section>
-<section class="technology" id="technology">
-  <div class="container">
-    <div class="tech-inner">
-      <div>
-        <p class="section-label">Technology</p>
-        <h2 class="section-title">Purpose-built for compliance intelligence</h2>
-        <p class="section-sub">Our platform stack is designed from the ground up for regulated-industry requirements — where accuracy, auditability, and speed all matter equally.</p>
-      </div>
-      <div class="tech-cards">
-        <div class="tech-card"><div class="tech-card-icon">🤖</div><div class="tech-card-title">Multi-Model AI</div><div class="tech-card-desc">Triple-engine consensus architecture using GPT-4o and Claude for validated compliance answers.</div></div>
-        <div class="tech-card"><div class="tech-card-icon">⚖️</div><div class="tech-card-title">Arbitration Engine</div><div class="tech-card-desc">Semantic similarity scoring arbitrates divergent AI outputs to surface the most accurate regulatory ruling.</div></div>
-        <div class="tech-card"><div class="tech-card-icon">🗃️</div><div class="tech-card-title">Regulation Graph</div><div class="tech-card-desc">Structured, version-controlled regulation database covering CASR Parts 91, 119, 135 and more.</div></div>
-        <div class="tech-card"><div class="tech-card-icon">🔒</div><div class="tech-card-title">Operator Isolation</div><div class="tech-card-desc">Full multi-tenant data isolation with JWT authentication, encrypted at rest and in transit.</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-<section class="contact" id="contact">
-  <div class="container">
-    <div class="contact-inner">
-      <div>
-        <p class="section-label">Get in Touch</p>
-        <h2 class="section-title">Let's talk compliance infrastructure</h2>
-        <p class="section-sub">Whether you're an aviation operator, investor, or potential partner — we'd love to hear from you.</p>
-        <div class="contact-info">
-          <div class="contact-item"><div class="contact-item-icon">✉️</div><div><div class="contact-item-label">General Enquiries</div><div class="contact-item-value"><a href="mailto:hello@hexkon.com">hello@hexkon.com</a></div></div></div>
-          <div class="contact-item"><div class="contact-item-icon">🛩️</div><div><div class="contact-item-label">reGulis Product</div><div class="contact-item-value"><a href="mailto:support@regulis.org">support@regulis.org</a></div></div></div>
-          <div class="contact-item"><div class="contact-item-icon">🌏</div><div><div class="contact-item-label">Headquarters</div><div class="contact-item-value">Australia</div></div></div>
+  </section>
+
+  <div class="divider"></div>
+  <section id="industries">
+    <div class="section-wrap">
+      <div class="section-label">Sectors Served</div>
+      <div class="industries-grid">
+        <div class="industry-tile">
+          <svg class="industry-icon" viewBox="0 0 36 36" fill="none"><path d="M18 4 L32 28 L4 28 Z" stroke="#C8A951" stroke-width="1.5" fill="none" stroke-linejoin="round"/><line x1="18" y1="12" x2="18" y2="22" stroke="#C8A951" stroke-width="1" stroke-opacity="0.5"/><line x1="12" y1="22" x2="24" y2="22" stroke="#C8A951" stroke-width="1" stroke-opacity="0.5"/></svg>
+          <div class="industry-name">Civil Aviation</div>
+          <p class="industry-desc">AOC holders, Part 135 operators, and flight training organisations operating under CASR, FAR, and equivalent regulatory frameworks.</p>
+        </div>
+        <div class="industry-tile">
+          <svg class="industry-icon" viewBox="0 0 36 36" fill="none"><rect x="6" y="8" width="24" height="20" rx="1" stroke="#C8A951" stroke-width="1.5"/><line x1="6" y1="14" x2="30" y2="14" stroke="#C8A951" stroke-width="1" stroke-opacity="0.5"/><line x1="13" y1="8" x2="13" y2="28" stroke="#C8A951" stroke-width="1" stroke-opacity="0.5"/></svg>
+          <div class="industry-name">Regulatory Bodies</div>
+          <p class="industry-desc">Aviation safety authorities, compliance oversight agencies, and organisations responsible for the administration of aviation regulations.</p>
+        </div>
+        <div class="industry-tile">
+          <svg class="industry-icon" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="12" stroke="#C8A951" stroke-width="1.5"/><circle cx="18" cy="18" r="5" stroke="#C8A951" stroke-width="1" stroke-opacity="0.5"/><line x1="18" y1="6" x2="18" y2="12" stroke="#C8A951" stroke-width="1" stroke-opacity="0.5"/><line x1="18" y1="24" x2="18" y2="30" stroke="#C8A951" stroke-width="1" stroke-opacity="0.5"/><line x1="6" y1="18" x2="12" y2="18" stroke="#C8A951" stroke-width="1" stroke-opacity="0.5"/><line x1="24" y1="18" x2="30" y2="18" stroke="#C8A951" stroke-width="1" stroke-opacity="0.5"/></svg>
+          <div class="industry-name">Safety-Critical Operations</div>
+          <p class="industry-desc">Defence, emergency services, and industrial operations where systematic precision and zero-failure tolerance are non-negotiable operational requirements.</p>
+        </div>
+        <div class="industry-tile">
+          <svg class="industry-icon" viewBox="0 0 36 36" fill="none"><line x1="8" y1="28" x2="28" y2="8" stroke="#8A9BB5" stroke-width="1.5" stroke-dasharray="3 3"/><circle cx="28" cy="8" r="3" stroke="#8A9BB5" stroke-width="1" fill="none"/></svg>
+          <div class="industry-name">Expanding</div>
+          <p class="industry-desc">Additional sectors under evaluation. HEXKON systems are designed for architecture-first deployment across any domain where precision is the baseline.</p>
         </div>
       </div>
-      <div class="contact-form">
-        <h3>Send us a message</h3>
-        <div class="form-row">
-          <div class="form-group"><label>First Name</label><input type="text" placeholder="James" /></div>
-          <div class="form-group"><label>Last Name</label><input type="text" placeholder="Mitchell" /></div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+  <section id="contact">
+    <div class="section-wrap">
+      <div class="section-label">Contact</div>
+      <div class="contact-grid">
+        <div class="contact-left">
+          <div class="contact-col-label">Office &amp; Correspondence</div>
+          <div class="contact-line"><span class="contact-line-label">Address</span><span class="contact-line-value">48 Upland Drive<br>Parkwood QLD 4214<br>Australia</span></div>
+          <div class="contact-line"><span class="contact-line-label">Electronic Mail</span><span class="contact-line-value"><a href="mailto:info@hexkon.com">info@hexkon.com</a></span></div>
+          <div class="contact-line"><span class="contact-line-label">Telephone</span><span class="contact-line-value"><a href="tel:+61478111572">+61 478 111 572</a></span></div>
+          <div class="contact-line" style="margin-top:36px;"><span class="contact-line-label">Registered</span><span class="contact-line-value" style="font-size:13px;color:var(--muted);">Queensland, Australia</span></div>
         </div>
-        <div class="form-group"><label>Email Address</label><input type="email" placeholder="james@operator.com" /></div>
-        <div class="form-group"><label>Enquiry Type</label><select><option>Product Demo — reGulis</option><option>Partnership Enquiry</option><option>Investor Relations</option><option>General Enquiry</option></select></div>
-        <div class="form-group"><label>Message</label><textarea placeholder="Tell us about your compliance challenge…"></textarea></div>
-        <button class="form-submit" type="button">Send Message →</button>
+        <div class="contact-right">
+          <div class="whatsapp-block">
+            <div class="whatsapp-label">Direct Line &middot; WhatsApp</div>
+            <div class="whatsapp-num">+61 478 111 572</div>
+            <p class="whatsapp-note">For time-sensitive enquiries, partnership discussions, or system briefings &mdash; reach us directly via WhatsApp.</p>
+            <a href="https://wa.me/61478111572" class="whatsapp-btn" target="_blank" rel="noopener">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Open WhatsApp
+            </a>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</section>
-<footer>
-  <div class="container">
-    <div class="footer-top">
-      <div class="footer-brand"><a href="#" class="nav-logo"><div class="nav-logo-mark"></div><span class="nav-wordmark">HEXKON</span></a><p>Building intelligent compliance infrastructure for regulated industries worldwide.</p></div>
-      <div class="footer-col"><h4>Company</h4><ul><li><a href="#mission">About</a></li><li><a href="#technology">Technology</a></li><li><a href="#contact">Contact</a></li></ul></div>
-      <div class="footer-col"><h4>Products</h4><ul><li><a href="https://app.regulis.org" target="_blank">reGulis</a></li><li><a href="#">VerifyMed (soon)</a></li><li><a href="#">RegTrack (soon)</a></li></ul></div>
-      <div class="footer-col"><h4>Resources</h4><ul><li><a href="mailto:hello@hexkon.com">hello@hexkon.com</a></li><li><a href="mailto:support@regulis.org">support@regulis.org</a></li><li><a href="#">Privacy Policy</a></li></ul></div>
+  </section>
+
+  <footer>
+    <div class="footer-copy">&copy; 2025 HEXKON. All rights reserved.</div>
+    <div class="footer-links">
+      <a href="https://regulis.org" target="_blank" rel="noopener">reGulis</a>
+      <a href="https://cubes.hexkon.com" target="_blank" rel="noopener">CUBES</a>
+      <a href="mailto:info@hexkon.com">info@hexkon.com</a>
     </div>
-    <div class="footer-bottom"><span>© 2026 HEXKON Pty Ltd. All rights reserved.</span><div style="display:flex;gap:20px;"><a href="#">Privacy</a><a href="#">Terms</a></div></div>
-  </div>
-</footer>
+  </footer>
+
 </body>
 </html>
